@@ -103,7 +103,7 @@
     "bootstrap-select": "^1.13.17",
     "electron-squirrel-startup": "^1.0.0",
     "jwt-decode": "^2.2.0",
-    "monaco-editor": "^0.20.0",
+    "monaco-editor": "^0.21.0",
     "monaco-editor-webpack-plugin": "^1.9.0",
     "popper.js": "^1.16.1"
   }
