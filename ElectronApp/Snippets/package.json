@@ -97,7 +97,7 @@
   "dependencies": {
     "@types/bootstrap-select": "^1.11.1",
     "@types/jquery": "^3.3.38",
-    "autoprefixer": "^9.8.0",
+    "autoprefixer": "^10.0.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.0",
     "bootstrap-select": "^1.13.17",
