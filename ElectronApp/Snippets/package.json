@@ -79,7 +79,7 @@
     "babel-loader": "8.2.2",
     "css-loader": "5.0.1",
     "electron": "11.1.1",
-    "eslint": "7.16.0",
+    "eslint": "7.28.0",
     "eslint-plugin-import": "2.22.1",
     "file-loader": "6.2.0",
     "fork-ts-checker-webpack-plugin": "6.0.8",
