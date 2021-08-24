@@ -20,36 +20,19 @@ services:
       - postgres
     volumes:
       - postgres:/data/postgres
-
-  pgadmin:
-    build: ./PGAdmin/
-    container_name: snippets_pgadmin
-    image: snippets_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-    volumes:
-      - pgadmin:/root/.pgadmin
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - postgres
-    restart: unless-stopped
-    depends_on:
-      - postgres_db
     
   restapi:
     container_name: snippets_restapi
     build: ./GoRestAPI/
     image: snippets_restapi
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: postgres
-      POSTGRES_HOST_NAME: host=snippets_db
-      REST_API_PORT: 8010
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST_NAME: ${POSTGRES_HOST_NAME}
+      REST_API_PORT: ${REST_API_PORT}
     ports:
-      - 8010:8010
+      - 80:8010
     networks: 
       - postgres
     restart: unless-stopped

@@ -1,8 +1,8 @@
 
-FROM postgres:9.6
+FROM postgres:13.4
 
 # Set maintainer label: maintainer=[YOUR-EMAIL]
-LABEL maintainer='andreas.roither@protonmail.com'
+LABEL maintainer='andreas.roither'
 
 # add the 'postgres' admin role
 USER postgres

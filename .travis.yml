@@ -13,7 +13,7 @@ env:
   global:
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-  DOCKER_COMPOSE_VERSION: 1.25.5
+  DOCKER_COMPOSE_VERSION: 1.27
   NODE_PATH: /home/travis/build/AndreasRoither/Snippets/ElectronApp/Snippets/node_modules
 
 git:

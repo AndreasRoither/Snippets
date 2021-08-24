@@ -1,0 +1,65 @@
+steps:
+  # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    id: '1'
+    args:
+      [
+        "build",
+        "--tag=eu.gcr.io/$PROJECT_ID/snippets_restapi:$TAG_NAME",
+        "-f",
+        "Dockerfile",
+        ".",
+      ]
+    dir: 'GoRestAPI'
+    env:
+      - "POSTGRES_DB=${_POSTGRES_DB}"
+      - "POSTGRES_PASSWORD=${_POSTGRES_PASSWORD}"
+      - "POSTGRES_USER=${_POSTGRES_USER}"
+      - "REST_API_PORT=${_POSTGRES_USER}"
+      - "POSTGRES_HOST_NAME=${_POSTGRES_HOST_NAME}"
+    # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    id: '2'
+    args:
+      [
+        "build",
+        "--tag=eu.gcr.io/$PROJECT_ID/snippets_pgadmin:$TAG_NAME",
+        "-f",
+        "Dockerfile",
+        ".",
+      ]
+    dir: 'PGAdmin'
+    env:
+      - "PGADMIN_DEFAULT_EMAIL=${_PGADMIN_DEFAULT_EMAIL}"
+      - "PGADMIN_DEFAULT_PASSWORD=${_PGADMIN_DEFAULT_PASSWORD}"
+      - "PGADMIN_PORT=${_PGADMIN_PORT}"
+
+    # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    id: '3'
+    args:
+      [
+        "build",
+        "--tag=eu.gcr.io/$PROJECT_ID/snippets_db:$TAG_NAME",
+        "-f",
+        "Dockerfile",
+        ".",
+      ]
+    dir: 'Docker/postgres'
+    env:
+      - "POSTGRES_USER=${_POSTGRES_USER}"
+      - "POSTGRES_PASSWORD=${_POSTGRES_PASSWORD}"
+      - "POSTGRES_DB=${_POSTGRES_DB}"
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "eu.gcr.io/$PROJECT_ID/snippets_restapi:$TAG_NAME"]
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "eu.gcr.io/$PROJECT_ID/snippets_pgadmin:$TAG_NAME"]
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "eu.gcr.io/$PROJECT_ID/snippets_db:$TAG_NAME"]
+images:
+  - "eu.gcr.io/$PROJECT_ID/snippets_restapi:$TAG_NAME"
+  - "eu.gcr.io/$PROJECT_ID/snippets_db:$TAG_NAME"
+  - "eu.gcr.io/$PROJECT_ID/snippets_pgadmin:$TAG_NAME"

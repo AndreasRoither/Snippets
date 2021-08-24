@@ -1,0 +1,15 @@
+steps:
+  - name: "docker/compose:1.27.4"
+    args: ["-f", "docker-compose_google.yml", "up", "-d", "--build"]
+    id: '1.27.4'
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker tag snippets_db:latest eu.gcr.io/$PROJECT_ID/snippets_db:$COMMIT_SHA']
+    wait_for: ['1.27.4']
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: 'bash'
+    args: ['-c', 'docker tag snippets_restapi:latest eu.gcr.io/$PROJECT_ID/snippets_restapi:$COMMIT_SHA']
+    wait_for: ['1.27.4']
+images:
+  - "eu.gcr.io/$PROJECT_ID/snippets_db:$COMMIT_SHA"
+  - "eu.gcr.io/$PROJECT_ID/snippets_restapi:$COMMIT_SHA"
